@@ -3,6 +3,7 @@ package br.com.borala.service;
 import br.com.borala.model.EdicaoEvento;
 import br.com.borala.model.Evento;
 import br.com.borala.repository.EventoRepository;
+import br.com.borala.vo.EventoVO;
 import br.com.borala.vo.InsertEventoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,8 @@ public class EventoService {
         this.edicaoEventoService = edicaoEventoService;
     }
 
-    public List<Evento> findAllEventosPublicos() {
-        return eventoRepository.findByPublicoTrue();
+    public List<EventoVO> findAllEventosPublicos() {
+        return edicaoEventoService.findByEventoPublicoTrue().stream().map(EventoVO::valueOf).collect(Collectors.toList());
     }
 
     public Evento findEventoById(Integer eventoId) {

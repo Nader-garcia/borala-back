@@ -5,6 +5,8 @@ import br.com.borala.repository.EdicaoEventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EdicaoEventoService {
 
@@ -13,6 +15,10 @@ public class EdicaoEventoService {
     @Autowired
     public EdicaoEventoService(EdicaoEventoRepository edicaoEventoRepository) {
         this.edicaoEventoRepository = edicaoEventoRepository;
+    }
+
+    public List<EdicaoEvento> findByEventoPublicoTrue() {
+        return edicaoEventoRepository.findByEventoPublicoTrue();
     }
 
     public EdicaoEvento saveEdicaoEvento(EdicaoEvento edicaoEvento) {
