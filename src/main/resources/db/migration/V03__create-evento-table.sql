@@ -7,5 +7,6 @@ create table evento (
     cidade             varchar(30),
     capacidade         int,
     valor              double,
-    publico            bit
+    publico            bit,
+    ativo              bit
 );

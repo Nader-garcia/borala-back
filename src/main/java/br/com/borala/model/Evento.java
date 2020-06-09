@@ -41,6 +41,8 @@ public class Evento {
 
     private Boolean publico;
 
+    private Boolean ativo;
+
     public static Evento valueOf(InsertEventoVO insertEventoVO) {
         return Evento.builder()
                 .capacidade(insertEventoVO.getCapacidade())
@@ -55,6 +57,7 @@ public class Evento {
                 .publico(insertEventoVO.getPublico())
                 .titulo(insertEventoVO.getTitulo())
                 .valor(insertEventoVO.getValor())
+                .ativo(true)
                 .build();
     }
 

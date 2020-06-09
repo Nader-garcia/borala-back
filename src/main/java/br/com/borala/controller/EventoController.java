@@ -2,11 +2,14 @@ package br.com.borala.controller;
 
 import br.com.borala.model.Evento;
 import br.com.borala.service.EventoService;
+import br.com.borala.vo.AvaliacaoEventoVO;
 import br.com.borala.vo.InscreverEventoVO;
 import br.com.borala.vo.InsertEventoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,6 +63,22 @@ public class EventoController {
         eventoService.saveEvento(evento);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping
+    public ResponseEntity avaliarEvento(@RequestBody AvaliacaoEventoVO avaliacaoEventoVO) {
+        eventoService.avaliarEvento(avaliacaoEventoVO);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteEvento(@PathVariable("id") Integer eventoId) {
+        final var deleteEvento = eventoService.desativarEvento(eventoId);
+
+        if (deleteEvento == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/filtro")

@@ -3,6 +3,7 @@ package br.com.borala.service;
 import br.com.borala.model.EdicaoEvento;
 import br.com.borala.model.Evento;
 import br.com.borala.repository.EventoRepository;
+import br.com.borala.vo.AvaliacaoEventoVO;
 import br.com.borala.vo.ConsultarEventoVO;
 import br.com.borala.vo.EventoVO;
 import br.com.borala.vo.InscreverEventoVO;
@@ -78,15 +79,25 @@ public class EventoService {
     }
 
     public List<Evento> findEventosByOrganizador(Integer organizadorId) {
-        return eventoRepository.findByOrganizadorId(organizadorId);
+        return eventoRepository.findByAtivoTrueAndOrganizadorId(organizadorId);
     }
 
-    public List<Evento> findEventosByCidade(String cidade) {
-        return eventoRepository.findByCidadeContaining(cidade);
+    public void avaliarEvento(AvaliacaoEventoVO avaliacaoEventoVO) {
+        usuarioEdicaoEventoService.avaliarEvento(avaliacaoEventoVO.getEdicaoEventoId(), avaliacaoEventoVO.getUsuarioId(), avaliacaoEventoVO.getAvaliacao());
     }
 
-    public List<Evento> findEventosByCategoria(Integer categoriaId) {
-        return eventoRepository.findByCategoriaId(categoriaId);
+    public Boolean desativarEvento(Integer eventoId) {
+        final var eventoOptional = eventoRepository.findById(eventoId);
+
+        if (eventoOptional.isEmpty()) {
+            return null;
+        }
+
+        final var evento = eventoOptional.get();
+        evento.setAtivo(false);
+        eventoRepository.save(evento);
+
+        return true;
     }
 
     private List<EventoVO> mapEdicaoEventoToEventoVO(List<EdicaoEvento> edicoesEvento) {

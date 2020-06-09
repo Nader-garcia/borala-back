@@ -16,6 +16,11 @@ public interface UsuarioEdicaoEventoRepository extends CrudRepository<UsuarioEdi
             "VALUES (?, ?)", nativeQuery = true)
     Integer inscreverEvento(Integer usuarioId, Integer edicaoEventoId);
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE usuario_edicao_evento SET classificacao = ?3 WHERE usuario_id = ?2 AND edicao_evento_id = ?1", nativeQuery = true)
+    Integer avaliarEvento(Integer edicaoEventoId, Integer usuarioId, Integer classificacao);
+
     List<UsuarioEdicaoEvento> findByUsuarioId(Integer usuarioId);
 
     Integer countByEdicaoEventoId(Integer edicaoEventoId);
