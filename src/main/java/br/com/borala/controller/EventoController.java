@@ -2,6 +2,7 @@ package br.com.borala.controller;
 
 import br.com.borala.model.Evento;
 import br.com.borala.service.EventoService;
+import br.com.borala.vo.InscreverEventoVO;
 import br.com.borala.vo.InsertEventoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,6 +45,12 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.insertEvento(evento));
     }
 
+    @PostMapping("/inscricao")
+    public ResponseEntity inscreverEvento(@RequestBody InscreverEventoVO inscreverEventoVO) {
+        eventoService.inscreverEvento(inscreverEventoVO);
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping
     public ResponseEntity updateEvento(@RequestBody Evento evento) {
         final var queryEvento = eventoService.findEventoById(evento.getId());
@@ -54,6 +62,13 @@ public class EventoController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/filtro")
+    public ResponseEntity filtrarEventos(@RequestParam("titulo") String titulo,
+                                         @RequestParam("cidade") String cidade,
+                                         @RequestParam("categoria") Integer categoriaId) {
+        return ResponseEntity.ok(eventoService.findByTituloAndCidadeAndCategoria(titulo, cidade, categoriaId));
+    }
+
     @GetMapping("/{id}/eventos")
     public ResponseEntity findEventosByUsuario(@PathVariable("id") Integer usuarioId) {
         return ResponseEntity.ok(eventoService.findEventosByUsuario(usuarioId));
@@ -62,16 +77,6 @@ public class EventoController {
     @GetMapping("/{id}/meus-eventos")
     public ResponseEntity findEventosByOrganizador(@PathVariable("id") Integer organizadorId) {
         return ResponseEntity.ok(eventoService.findEventosByOrganizador(organizadorId));
-    }
-
-    @GetMapping("/cidade/{cidade}")
-    public ResponseEntity findEventosByCidade(@PathVariable("cidade") String cidade) {
-        return ResponseEntity.ok(eventoService.findEventosByCidade(cidade));
-    }
-
-    @GetMapping("/categorias/{id}")
-    public ResponseEntity findEventosByCategoria(@PathVariable("id") Integer categoriaId) {
-        return ResponseEntity.ok(eventoService.findEventosByCategoria(categoriaId));
     }
 
 }

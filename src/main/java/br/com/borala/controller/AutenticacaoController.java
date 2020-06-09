@@ -26,7 +26,7 @@ public class AutenticacaoController {
 
         if (usuarioQuery == null) return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(usuarioQuery.getId());
     }
 
 }

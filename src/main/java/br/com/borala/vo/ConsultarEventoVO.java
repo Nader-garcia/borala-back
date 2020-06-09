@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class EventoVO {
+public class ConsultarEventoVO {
 
     private Integer id;
 
@@ -26,8 +26,10 @@ public class EventoVO {
 
     private String dataEvento;
 
-    public static EventoVO valueOf(EdicaoEvento edicaoEvento) {
-        return EventoVO.builder()
+    private Integer participantes;
+
+    public static ConsultarEventoVO valueOf(EdicaoEvento edicaoEvento) {
+        return ConsultarEventoVO.builder()
                 .capacidade(edicaoEvento.getEvento().getCapacidade())
                 .categoria(edicaoEvento.getEvento().getCategoria().getDescricao())
                 .cidade(edicaoEvento.getEvento().getCidade())

@@ -17,12 +17,26 @@ public class EdicaoEventoService {
         this.edicaoEventoRepository = edicaoEventoRepository;
     }
 
+    public EdicaoEvento findById(Integer edicaoEventoId) {
+        final var edicaoEventoOptional = edicaoEventoRepository.findById(edicaoEventoId);
+
+        if (edicaoEventoOptional.isEmpty()) {
+            return null;
+        }
+
+        return edicaoEventoOptional.get();
+    }
+
     public List<EdicaoEvento> findByEventoPublicoTrue() {
         return edicaoEventoRepository.findByEventoPublicoTrue();
     }
 
     public EdicaoEvento saveEdicaoEvento(EdicaoEvento edicaoEvento) {
         return edicaoEventoRepository.save(edicaoEvento);
+    }
+
+    public List<EdicaoEvento> findByTituloAndCidadeAndCategoria(String titulo, String cidade, Integer categoriaId) {
+        return edicaoEventoRepository.findByTituloAndCidadeAndCategoria(titulo, cidade, categoriaId);
     }
 
 }
