@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @AllArgsConstructor
 @Builder
@@ -21,18 +20,7 @@ public class Usuario {
 
     private String nome;
 
-    private String cpf;
-
-    private String cel;
-
     private String email;
-
-    @Column(name = "data_nasc")
-    private Date dataNasc;
-
-    private String estado;
-
-    private String cidade;
 
     private String senha;
 

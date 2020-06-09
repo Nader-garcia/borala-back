@@ -13,6 +13,7 @@ public interface EdicaoEventoRepository extends CrudRepository<EdicaoEvento, Int
     @Query(value = "SELECT ee " +
             "FROM EdicaoEvento ee " +
             "WHERE ee.evento.publico = true " +
+            "AND ee.evento.ativo = true " +
             "AND LOWER(ee.evento.titulo) LIKE LOWER(CONCAT('%', ?1,'%')) " +
             "AND LOWER(ee.evento.cidade) LIKE LOWER(CONCAT('%', ?2,'%')) " +
             "AND (ee.evento.categoria.id = ?3 OR ?3 IS NULL) " +

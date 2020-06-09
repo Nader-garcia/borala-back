@@ -18,6 +18,10 @@ public class UsuarioEdicaoEventoService {
         this.usuarioEdicaoEventoRepository = usuarioEdicaoEventoRepository;
     }
 
+    public void avaliarEvento(Integer edicaoEventoId, Integer usuarioId, Integer classificacao) {
+        usuarioEdicaoEventoRepository.avaliarEvento(edicaoEventoId, usuarioId, classificacao);
+    }
+
     public void inscreverEvento(InscreverEventoVO inscreverEventoVO) {
         usuarioEdicaoEventoRepository.inscreverEvento(inscreverEventoVO.getUsuarioId(), inscreverEventoVO.getEdicaoEventoId());
     }
